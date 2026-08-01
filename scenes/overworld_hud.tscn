@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://scripts/overworld_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arrow_left.svg" id="2_left"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arrow_right.svg" id="3_right"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arrow_up.svg" id="4_up"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arrow_down.svg" id="5_down"]
+[ext_resource type="Texture2D" path="res://assets/sprites/button_interact.svg" id="6_interact"]
+
+[node name="OverworldHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="QuestTracker" type="Label" parent="."]
+offset_left = 24.0
+offset_top = 16.0
+offset_right = 720.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0.0588235, 0.0705882, 0.101961, 0.862745)
+theme_override_constants/outline_size = 8
+theme_override_font_sizes/font_size = 28
+text = "Talk to Elder Rowan"
+vertical_alignment = 1
+
+[node name="UpButton" type="TouchScreenButton" parent="."]
+position = Vector2(112, 352)
+texture_normal = ExtResource("4_up")
+action = "move_up"
+passby_press = true
+
+[node name="LeftButton" type="TouchScreenButton" parent="."]
+position = Vector2(16, 448)
+texture_normal = ExtResource("2_left")
+action = "move_left"
+passby_press = true
+
+[node name="RightButton" type="TouchScreenButton" parent="."]
+position = Vector2(208, 448)
+texture_normal = ExtResource("3_right")
+action = "move_right"
+passby_press = true
+
+[node name="DownButton" type="TouchScreenButton" parent="."]
+position = Vector2(112, 544)
+texture_normal = ExtResource("5_down")
+action = "move_down"
+passby_press = true
+
+[node name="InteractButton" type="TouchScreenButton" parent="."]
+position = Vector2(1024, 496)
+texture_normal = ExtResource("6_interact")
+action = "interact"

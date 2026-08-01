@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/fighter.gd" id="1_fighter"]
+[ext_resource type="Texture2D" path="res://assets/sprites/player_placeholder.svg" id="2_sprite"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(32, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_attack"]
+size = Vector2(36, 40)
+
+[node name="Fighter" type="CharacterBody2D"]
+script = ExtResource("1_fighter")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_sprite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_body")
+
+[node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(28, 0)
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource("RectangleShape2D_attack")
+disabled = true
+
+[node name="HPBar" type="Node2D" parent="."]
+position = Vector2(0, -34)
+
+[node name="Background" type="ColorRect" parent="HPBar"]
+offset_left = -18.0
+offset_top = -3.0
+offset_right = 18.0
+offset_bottom = 3.0
+color = Color(0.0784314, 0.0862745, 0.109804, 0.784314)
+
+[node name="Fill" type="ColorRect" parent="HPBar"]
+offset_left = -17.0
+offset_top = -2.0
+offset_right = 17.0
+offset_bottom = 2.0
+color = Color(0.360784, 0.788235, 0.372549, 1)
