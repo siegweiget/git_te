@@ -1,0 +1,76 @@
+[gd_scene load_steps=6 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1152, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat1"]
+size = Vector2(176, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat2"]
+size = Vector2(176, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plat3"]
+size = Vector2(176, 24)
+
+[node name="Main" type="Node2D"]
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(576, 620)
+
+[node name="Visual" type="ColorRect" parent="Ground"]
+offset_left = -576.0
+offset_top = -28.0
+offset_right = 576.0
+offset_bottom = 28.0
+color = Color(0.235294, 0.427451, 0.290196, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(360, 544)
+
+[node name="Visual" type="ColorRect" parent="Platform1"]
+offset_left = -88.0
+offset_top = -12.0
+offset_right = 88.0
+offset_bottom = 12.0
+color = Color(0.470588, 0.376471, 0.290196, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+shape = SubResource("RectangleShape2D_plat1")
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(620, 484)
+
+[node name="Visual" type="ColorRect" parent="Platform2"]
+offset_left = -88.0
+offset_top = -12.0
+offset_right = 88.0
+offset_bottom = 12.0
+color = Color(0.470588, 0.376471, 0.290196, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+shape = SubResource("RectangleShape2D_plat2")
+
+[node name="Platform3" type="StaticBody2D" parent="."]
+position = Vector2(880, 424)
+
+[node name="Visual" type="ColorRect" parent="Platform3"]
+offset_left = -88.0
+offset_top = -12.0
+offset_right = 88.0
+offset_bottom = 12.0
+color = Color(0.470588, 0.376471, 0.290196, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
+shape = SubResource("RectangleShape2D_plat3")
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(140, 480)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position_smoothing_enabled = true
+position_smoothing_speed = 6.0
