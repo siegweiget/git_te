@@ -25,11 +25,11 @@ assets; this only happens once.
 
 ## Controls
 
-| Action     | Keys           |
-|------------|----------------|
-| Move left  | `A` / `←`      |
-| Move right | `D` / `→`      |
-| Jump       | `Space` / `W` / `↑` |
+| Action     | Keys           | Touch (mobile) |
+|------------|----------------|-----------------|
+| Move left  | `A` / `←`      | ◀ button, bottom-left |
+| Move right | `D` / `→`      | ▶ button, bottom-left |
+| Jump       | `Space` / `W` / `↑` | Jump button, bottom-right |
 
 ## Project structure
 
@@ -37,16 +37,26 @@ assets; this only happens once.
 .
 ├── project.godot              # Engine/project settings: input map, main scene, window size
 ├── icon.svg                   # Project icon
+├── export_presets.cfg          # Android/iOS export configuration (no secrets); see MOBILE.md
 ├── scenes/
-│   ├── main.tscn               # The game world: ground, 3 platforms, an instanced Player + Camera2D
+│   ├── main.tscn               # The game world: ground, 3 platforms, an instanced Player + Camera2D + HUD
+│   ├── hud.tscn                 # Touch-control overlay: on-screen left/right/jump buttons
 │   └── player.tscn             # The player: CharacterBody2D + Sprite2D + CollisionShape2D
 ├── scripts/
 │   └── player.gd                # Player movement/physics, attached to scenes/player.tscn
 └── assets/
-    ├── sprites/                 # Textures (currently a placeholder player sprite)
+    ├── sprites/                 # Textures (placeholder player sprite + touch-button icons)
     ├── audio/                   # Sound effects / music (empty for now)
     └── fonts/                   # Fonts (empty for now)
 ```
+
+## Mobile (Android/iOS)
+
+The project also runs on phones: it has on-screen touch controls, scales to
+different screen sizes, and is configured with Android and iOS export
+presets (no credentials included). See [MOBILE.md](MOBILE.md) for a full
+walkthrough of testing touch controls on desktop and exporting/building for
+Android or iOS.
 
 ## Tuning
 

@@ -20,6 +20,10 @@ export_credentials.cfg
 # be committed alongside the source assets they describe (they record the
 # importer settings and the path to the generated cache in .godot/imported).
 
+# Exported build output (APK/IPA and related files) produced by
+# Project > Export. Regenerate locally with the Godot editor; see MOBILE.md.
+builds/
+
 # ---------------------------------------------------------------------------
 # OS junk
 # ---------------------------------------------------------------------------

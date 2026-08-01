@@ -2,9 +2,14 @@
 
 Textures used by the game's scenes.
 
-Currently this folder just holds `player_placeholder.svg`, a simple blue
+Currently this folder holds `player_placeholder.svg`, a simple blue
 placeholder sprite referenced by the `Sprite2D` node's `Texture` property in
-`scenes/player.tscn`.
+`scenes/player.tscn`, plus three touch-button icons -- `arrow_left.svg`,
+`arrow_right.svg`, and `button_jump.svg`. Those three are used as the
+`texture_normal` of the `TouchScreenButton` nodes in `scenes/hud.tscn` (the
+on-screen mobile move-left/move-right/jump controls). They're swappable the
+same way as the player sprite -- drop in a replacement file and re-point the
+`texture_normal` property in the Inspector.
 
 ## Swapping in real art
 
