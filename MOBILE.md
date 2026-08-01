@@ -2,10 +2,24 @@
 
 ## Overview
 
-This game is mobile-ready: it has on-screen touch buttons (left, right, and
-jump), the display scales to fit different screen sizes, and it renders with
-a mobile-friendly graphics backend. None of that requires anything special
-from you to *play* the game in the editor -- it already works today.
+This game is mobile-ready: both of its layers have their own on-screen touch
+controls, the display scales to fit different screen sizes, and it renders
+with a mobile-friendly graphics backend. None of that requires anything
+special from you to *play* the game in the editor -- it already works today.
+
+There are two separate touch HUDs, one per layer, each its own scene:
+
+- **`scenes/overworld_hud.tscn`** -- a four-way D-pad (up/left/right/down)
+  and an Interact button, for walking around the map and talking to NPCs.
+- **`scenes/battle_hud.tscn`** -- Left/Right movement, Jump, Attack, Dash and
+  Switch buttons, for the side-view duels.
+
+The Dash and Switch buttons are conditionally visible, not always-on: Dash
+only appears once the quest reward that unlocks it has been earned, and
+Switch only appears once the party has more than one member. Both checks
+happen once, in `scripts/battle_hud.gd`, when the battle scene loads -- see
+that file if you add a way to gain a second party member or the dash ability
+earlier than the main quest currently does.
 
 Building an actual installable app for a phone (an `.apk` for Android or an
 `.ipa`/Xcode project for iOS) is a separate step that happens on your own
@@ -18,15 +32,21 @@ You don't need a phone to try the touch controls. The project has
 `input_devices/pointing/emulate_touch_from_mouse` enabled in
 `project.godot`, which makes Godot treat mouse clicks as touch events.
 
-The three on-screen buttons (left arrow, right arrow, jump) defined in
-`scenes/hud.tscn` are visible and clickable with the mouse right now, on
-desktop, with no extra setup -- just run the project (F5) and click them.
+All the on-screen buttons are visible and clickable with the mouse right
+now, on desktop, with no extra setup -- just run the project (F5) and click
+them. On the overworld that's `UpButton`, `LeftButton`, `RightButton` and
+`DownButton` (the D-pad) plus `InteractButton`, all in
+`scenes/overworld_hud.tscn`; in a battle it's `LeftButton`, `RightButton`,
+`JumpButton`, `AttackButton`, and -- once unlocked/available --
+`DashButton` and `SwitchButton`, all in `scenes/battle_hud.tscn`.
 
 If you'd rather they only appear on an actual touchscreen (hiding them when
-running on desktop), select each `TouchScreenButton` node in `scenes/hud.tscn`
-and, in the Inspector, change **Visibility Mode** from its default to
-**TouchScreen Only**. Do this for `LeftButton`, `RightButton`, and
-`JumpButton`.
+running on desktop), select each `TouchScreenButton` node in
+`scenes/overworld_hud.tscn` or `scenes/battle_hud.tscn` and, in the
+Inspector, change **Visibility Mode** from its default to **TouchScreen
+Only**. Do this for every button node in both scenes; it does not affect
+the separate Dash/Switch availability checks described above, which run on
+top of whatever Visibility Mode you choose.
 
 ## Android walkthrough
 
