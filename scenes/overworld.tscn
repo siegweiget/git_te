@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3]
+[gd_scene load_steps=17 format=3]
 
 [ext_resource type="Script" path="res://scripts/overworld.gd" id="1_overworld"]
 [ext_resource type="PackedScene" path="res://scenes/overworld_player.tscn" id="2_player"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" path="res://scenes/overworld_enemy.tscn" id="4_enemy"]
 [ext_resource type="PackedScene" path="res://scenes/dialogue_box.tscn" id="5_dialogue"]
 [ext_resource type="PackedScene" path="res://scenes/overworld_hud.tscn" id="6_hud"]
+[ext_resource type="Script" path="res://scripts/well.gd" id="7_well"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_house_a"]
 size = Vector2(200, 160)
@@ -27,6 +28,12 @@ size = Vector2(2432, 32)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
 size = Vector2(32, 1424)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fence_n"]
+size = Vector2(12, 540)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fence_s"]
+size = Vector2(12, 536)
 
 [node name="Overworld" type="Node2D"]
 script = ExtResource("1_overworld")
@@ -116,6 +123,7 @@ shape = SubResource("RectangleShape2D_house_a")
 
 [node name="Well" type="StaticBody2D" parent="Village"]
 position = Vector2(820, 860)
+script = ExtResource("7_well")
 
 [node name="Visual" type="ColorRect" parent="Village/Well"]
 offset_left = -36.0
@@ -141,20 +149,33 @@ display_name = "Elder Rowan"
 
 [node name="Fence" type="Node2D" parent="."]
 
-[node name="FenceNorth" type="ColorRect" parent="Fence"]
+[node name="FenceNorth" type="StaticBody2D" parent="Fence"]
 z_index = -17
-offset_left = 1134.0
-offset_right = 1146.0
-offset_bottom = 540.0
+position = Vector2(1140, 270)
+
+[node name="Visual" type="ColorRect" parent="Fence/FenceNorth"]
+offset_left = -6.0
+offset_top = -270.0
+offset_right = 6.0
+offset_bottom = 270.0
 color = Color(0.419608, 0.298039, 0.192157, 1)
 
-[node name="FenceSouth" type="ColorRect" parent="Fence"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fence/FenceNorth"]
+shape = SubResource("RectangleShape2D_fence_n")
+
+[node name="FenceSouth" type="StaticBody2D" parent="Fence"]
 z_index = -17
-offset_left = 1134.0
-offset_top = 760.0
-offset_right = 1146.0
-offset_bottom = 1296.0
+position = Vector2(1140, 1028)
+
+[node name="Visual" type="ColorRect" parent="Fence/FenceSouth"]
+offset_left = -6.0
+offset_top = -268.0
+offset_right = 6.0
+offset_bottom = 268.0
 color = Color(0.419608, 0.298039, 0.192157, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Fence/FenceSouth"]
+shape = SubResource("RectangleShape2D_fence_s")
 
 [node name="PostNorth" type="ColorRect" parent="Fence"]
 z_index = -17

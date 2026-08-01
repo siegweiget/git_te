@@ -114,7 +114,8 @@ func _advance() -> void:
 # Hides everything and gives the player back the controls.
 #
 # `announce` is false when this is called from _ready() to set the starting
-# state: nothing has finished, so nothing should be announced.
+# state: nothing has finished, nothing should be announced, and there is no
+# stray button press to wait out.
 func _close(announce: bool) -> void:
 	is_open = false
 	_lines = PackedStringArray()
@@ -123,10 +124,37 @@ func _close(announce: bool) -> void:
 	panel.visible = false
 	tap_catcher.visible = false
 
-	_set_player_frozen(false)
+	if not announce:
+		_set_player_frozen(false)
+		return
 
-	if announce:
-		dialogue_finished.emit()
+	# Announced first, so whoever was listening (the elder's quest wiring) reacts
+	# on this frame rather than after the delay below.
+	dialogue_finished.emit()
+
+	# Now hand the controls back — but not on the frame the closing press landed.
+	#
+	# OverworldPlayer *polls* Input.is_action_just_pressed() from _physics_process
+	# rather than consuming events, so set_input_as_handled() cannot protect it:
+	# the press that dismissed this last line still reads as "just pressed" for
+	# the whole of the surrounding physics frame. Unfreeze immediately and that
+	# very same press is handed straight to _try_interact(), which finds the NPC
+	# still standing there and reopens the conversation. The player would then be
+	# stuck in a loop with no way to walk away.
+	#
+	# Waiting for the next physics frame retires the press. The extra frame after
+	# it covers the other ordering: real key events are dispatched *before* the
+	# physics step, so on that path the first frame we wake in is still the press's
+	# own frame.
+	await get_tree().physics_frame
+	if Input.is_action_just_pressed("interact"):
+		await get_tree().physics_frame
+
+	# A fresh conversation may have started while we were waiting (the elder's
+	# reward speech is one call away from this very signal), and stealing the
+	# controls back from it would be worse than the bug above.
+	if not is_open:
+		_set_player_frozen(false)
 
 
 # Freezes or unfreezes whoever is walking around the overworld.

@@ -76,9 +76,16 @@ func _physics_process(_delta: float) -> void:
 # Looks for the nearest thing standing inside InteractArea that knows how to be
 # talked to, and talks to it.
 #
-# Both bodies and areas are checked. NPCs are StaticBody2D and so turn up in the
-# body list, but collecting areas too means a later work package can add a
-# talkable signpost or a save point as an Area2D without touching this script.
+# Both bodies and areas are checked. NPCs and the village well are StaticBody2D
+# and so turn up in the body list, but collecting areas too means a later work
+# package can add a talkable signpost as an Area2D without touching this script.
+#
+# One trap worth writing down, because it costs an afternoon to find: InteractArea
+# must keep `monitorable` switched ON in overworld_player.tscn. `monitorable` reads
+# like it only controls whether *other* areas can see this one — but in Godot 4.3
+# turning it off also stops this area pairing with StaticBody2D at all. Moving
+# bodies keep working, so the symptom is not "interacting is broken", it is
+# "interacting works on the monsters and silently does nothing on every NPC".
 func _try_interact() -> void:
 	# An untyped Array on purpose: it holds two different kinds of node and only
 	# ever gets read back one element at a time.
