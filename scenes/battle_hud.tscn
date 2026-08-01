@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/battle_hud.gd" id="1_hud"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arrow_left.svg" id="2_left"]
+[ext_resource type="Texture2D" path="res://assets/sprites/arrow_right.svg" id="3_right"]
+[ext_resource type="Texture2D" path="res://assets/sprites/button_jump.svg" id="4_jump"]
+[ext_resource type="Texture2D" path="res://assets/sprites/button_attack.svg" id="5_attack"]
+[ext_resource type="Texture2D" path="res://assets/sprites/button_switch.svg" id="6_switch"]
+[ext_resource type="Texture2D" path="res://assets/sprites/button_dash.svg" id="7_dash"]
+
+[node name="BattleHUD" type="CanvasLayer"]
+script = ExtResource("1_hud")
+
+[node name="LeftButton" type="TouchScreenButton" parent="."]
+position = Vector2(48, 504)
+texture_normal = ExtResource("2_left")
+action = "move_left"
+passby_press = true
+
+[node name="RightButton" type="TouchScreenButton" parent="."]
+position = Vector2(176, 504)
+texture_normal = ExtResource("3_right")
+action = "move_right"
+passby_press = true
+
+[node name="JumpButton" type="TouchScreenButton" parent="."]
+position = Vector2(1016, 512)
+texture_normal = ExtResource("4_jump")
+action = "jump"
+
+[node name="AttackButton" type="TouchScreenButton" parent="."]
+position = Vector2(880, 512)
+texture_normal = ExtResource("5_attack")
+action = "attack"
+
+[node name="DashButton" type="TouchScreenButton" parent="."]
+position = Vector2(896, 396)
+texture_normal = ExtResource("7_dash")
+action = "dash"
+
+[node name="SwitchButton" type="TouchScreenButton" parent="."]
+position = Vector2(1032, 24)
+texture_normal = ExtResource("6_switch")
+action = "switch_character"
